@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "19532199538",
+    "firebase_url": "https://shapewatcherauth.firebaseio.com",
+    "project_id": "shapewatcherauth",
+    "storage_bucket": "shapewatcherauth.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:19532199538:android:051bd274f1a6354c",
+        "android_client_info": {
+          "package_name": "pl.edu.agh.shapewatcher"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "19532199538-dbqpvn8uiqecami9nfsg6c4jn26hom8t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4Lghk4ATkNqiyfk31vUJmhZM4KUvurJg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

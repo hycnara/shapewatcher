@@ -121,7 +121,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                     UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                             .setDisplayName(login).build();
                     user.updateProfile(profileUpdates);
-                    
+
                     progressDialog.dismiss();
                     finish();
                     startActivity(new Intent(RegistrationActivity.this, LoginActivity.class));
