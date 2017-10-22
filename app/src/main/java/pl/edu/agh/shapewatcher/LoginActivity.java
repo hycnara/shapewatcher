@@ -33,10 +33,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         firebaseAuth = FirebaseAuth.getInstance();
 
-        if(firebaseAuth.getCurrentUser()!= null){
-         //   startActivity(new Intent(LoginActivity.this, MenuActivity.class));
-        }
-
         editTextEmail = (EditText) findViewById(R.id.editTextEmailLogIn);
         editTextPassword = (EditText) findViewById(R.id.editTextPasswordLogIn);
         buttonLogIn = (Button) findViewById(R.id.buttonLogIn);
@@ -55,7 +51,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void loginUser() {
-        // log user and set flag isLoggedSuccesfully to TRUE
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
 
