@@ -60,6 +60,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         }
         if(v == buttonLogOut){
             firebaseAuth.signOut();
+            finish();
             startActivity(new Intent(MenuActivity.this, WelcomeActivity.class));
         }
     }
