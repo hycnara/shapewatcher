@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="spinnerItems">
+        <item>Primary education</item>
+        <item>Secondary education</item>
+        <item>High School</item>
+        <item>Bachelor\'s degree</item>
+        <item>Master\'s degree</item>
+        <item>Doctorate</item>
+    </string-array>
+</resources>

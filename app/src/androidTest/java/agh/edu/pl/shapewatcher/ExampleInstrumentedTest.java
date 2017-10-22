@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("agh.edu.pl.shapewatcher", appContext.getPackageName());
+        assertEquals("pl.edu.agh.shapewatcher", appContext.getPackageName());
     }
 }

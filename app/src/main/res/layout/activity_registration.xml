@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/butter"
+    tools:context="pl.edu.agh.shapewatcher.RegistrationActivity">
+
+    <EditText
+        android:id="@+id/editTextEmail"
+        android:layout_width="260dp"
+        android:layout_height="40dp"
+        android:ems="10"
+        android:hint="Enter your e-mail"
+        android:inputType="textEmailAddress"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/textViewEnterData" />
+
+    <EditText
+        android:id="@+id/editTextPassword"
+        android:layout_width="260dp"
+        android:layout_height="40dp"
+        android:ems="10"
+        android:hint="Enter password"
+        android:inputType="textPassword"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/editTextEmail"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp" />
+
+    <EditText
+        android:id="@+id/editTextPassword2"
+        android:layout_width="260dp"
+        android:layout_height="40dp"
+        android:ems="10"
+        android:hint="Repeat password"
+        android:inputType="textPassword"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/editTextPassword"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp" />
+
+    <EditText
+        android:id="@+id/editTextAge"
+        android:layout_width="260dp"
+        android:layout_height="40dp"
+        android:ems="10"
+        android:hint="Enter your age"
+        android:inputType="number"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/editTextPassword2"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp" />
+
+    <RadioButton
+        android:id="@+id/radioButtonMale"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:text="Male"
+        android:checked="true"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/editTextAge"
+        android:layout_marginLeft="50dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/radioButtonFemale"
+        android:layout_marginRight="8dp"
+        app:layout_constraintHorizontal_bias="0.0" />
+
+    <RadioButton
+        android:id="@+id/radioButtonFemale"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:text="Female"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/editTextAge"
+        android:layout_marginRight="50dp"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <Spinner
+        android:id="@+id/spinnerEducation"
+        android:layout_width="260dp"
+        android:layout_height="40dp"
+        android:entries="@array/spinnerItems"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="57dp"
+        android:spinnerMode="dropdown"
+        style="@android:style/Widget.Spinner"
+        app:layout_constraintTop_toBottomOf="@+id/editTextAge" />
+
+    <Button
+        android:id="@+id/buttonRegister"
+        android:layout_width="212dp"
+        android:layout_height="50dp"
+        android:text="Register"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="113dp"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerEducation"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp" />
+
+    <TextView
+        android:id="@+id/textViewEnterData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Enter your data"
+        android:textSize="20dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp" />
+
+</android.support.constraint.ConstraintLayout>
