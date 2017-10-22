@@ -8,8 +8,8 @@ import android.widget.Button;
 
 public class WelcomeActivity extends AppCompatActivity implements View.OnClickListener {
 
-    Button buttonRegister;
-    Button buttonLogin;
+    private Button buttonRegister;
+    private Button buttonLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
