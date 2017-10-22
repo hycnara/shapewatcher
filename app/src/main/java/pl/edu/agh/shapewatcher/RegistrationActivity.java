@@ -18,10 +18,15 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
+
+import org.w3c.dom.Text;
 
 
 public class RegistrationActivity extends AppCompatActivity implements View.OnClickListener{
 
+    private EditText editTextLogin;
     private EditText editTextEmail;
     private EditText editTextPassword;
     private EditText editTextPassword2;
@@ -44,6 +49,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         firebaseAuth = FirebaseAuth.getInstance();
         progressDialog = new ProgressDialog(this);
 
+        editTextLogin = (EditText) findViewById(R.id.editTextLogin);
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
         editTextPassword2 = (EditText) findViewById(R.id.editTextPassword2);
@@ -72,6 +78,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
     }
 
     private void registerUser() {
+        final String login = editTextLogin.getText().toString().trim();
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
         String password2 = editTextPassword2.getText().toString().trim();
@@ -81,6 +88,10 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         String sex = radioButtonMale.isChecked() ? "Male" : "Female";
         String education = spinnerEducation.getSelectedItem().toString();
 
+        if(TextUtils.isEmpty(login)){
+            Toast.makeText(this, "Please enter login", Toast.LENGTH_SHORT).show();
+            return;
+        }
         if(TextUtils.isEmpty(email)){
             Toast.makeText(this, "Please enter email", Toast.LENGTH_SHORT).show();
             return;
@@ -105,6 +116,12 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     Toast.makeText(RegistrationActivity.this, "Registered succesfully", Toast.LENGTH_SHORT).show();
+
+                    FirebaseUser user = firebaseAuth.getCurrentUser();
+                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                            .setDisplayName(login).build();
+                    user.updateProfile(profileUpdates);
+                    
                     progressDialog.dismiss();
                     finish();
                     startActivity(new Intent(RegistrationActivity.this, LoginActivity.class));
