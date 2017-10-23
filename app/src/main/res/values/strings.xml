@@ -4,4 +4,16 @@
     <string name="title_activity_menu">MenuActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="enter_login">Please enter login.</string>
+    <string name="enter_email">Please enter e-mail.</string>
+    <string name="enter_password">Please enter password with at least 6 characters.</string>
+    <string name="password_incorrect">Repeated password incorrect.</string>
+    <string name="valid_age">Please enter valid age.</string>
+    <string name="registering_user">Registering user</string>
+    <string name="register_success">Registered successfully.</string>
+    <string name="register_fail">Could not register, try again later.</string>
+    <string name="valid_password">Please enter valid password.</string>
+    <string name="logging">Logging in</string>
+    <string name="logging_success">Logged in successfully.</string>
+    <string name="logging_fail">Logging unsuccesfull. Please use valid email and password.</string>
 </resources>

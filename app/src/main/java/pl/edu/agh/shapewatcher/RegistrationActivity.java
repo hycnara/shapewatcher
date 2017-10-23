@@ -87,35 +87,34 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
             age = Integer.parseInt(editTextAge.getText().toString());
         String sex = radioButtonMale.isChecked() ? "Male" : "Female";
         String education = spinnerEducation.getSelectedItem().toString();
-
         if(TextUtils.isEmpty(login)){
-            Toast.makeText(this, "Please enter login", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.enter_login), Toast.LENGTH_SHORT).show();
             return;
         }
         if(TextUtils.isEmpty(email)){
-            Toast.makeText(this, "Please enter email", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.enter_email), Toast.LENGTH_SHORT).show();
             return;
         }
         if(TextUtils.isEmpty(password) || password.length() < 6){
-            Toast.makeText(this, "Please enter password with at least 6 characters", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.enter_password), Toast.LENGTH_SHORT).show();
             return;
         }
         if(TextUtils.isEmpty(password2) || (!password2.equals(password))){
-            Toast.makeText(this, "Repeated password incorrect", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.password_incorrect), Toast.LENGTH_SHORT).show();
             return;
         }
         if( age < 1 || age > 100){
-            Toast.makeText(this, "Please enter valid age", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.valid_age), Toast.LENGTH_SHORT).show();
             return;
         }
-        progressDialog.setMessage("Registering user ...");
+        progressDialog.setMessage(getString(R.string.registering_user));
         progressDialog.show();
 
         firebaseAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    Toast.makeText(RegistrationActivity.this, "Registered succesfully", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegistrationActivity.this, getString(R.string.register_success), Toast.LENGTH_SHORT).show();
 
                     FirebaseUser user = firebaseAuth.getCurrentUser();
                     UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
@@ -126,7 +125,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                     finish();
                     startActivity(new Intent(RegistrationActivity.this, LoginActivity.class));
                 }else{
-                    Toast.makeText(RegistrationActivity.this, "Could not register, try again later", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegistrationActivity.this, getString(R.string.register_fail), Toast.LENGTH_SHORT).show();
                     progressDialog.dismiss();
                 }
             }

@@ -55,25 +55,25 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         String password = editTextPassword.getText().toString().trim();
 
         if(TextUtils.isEmpty(email)){
-            Toast.makeText(this, "Please enter email", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.enter_email), Toast.LENGTH_SHORT).show();
             return;
         }
         if(TextUtils.isEmpty(password)){
-            Toast.makeText(this, "Please enter valid password", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.valid_password), Toast.LENGTH_SHORT).show();
             return;
         }
-        progressDialog.setMessage("Logging in");
+        progressDialog.setMessage(getString(R.string.logging));
         firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                   Toast.makeText(LoginActivity.this, "Logged in succesfully.", Toast.LENGTH_SHORT).show();
+                   Toast.makeText(LoginActivity.this, getString(R.string.logging_success), Toast.LENGTH_SHORT).show();
                     progressDialog.dismiss();
                     finish();
                     startActivity(new Intent(LoginActivity.this, MenuActivity.class));
                 }
                 else{
-                    Toast.makeText(LoginActivity.this, "Logging unsuccesfull. Please use valid email & password.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, getString(R.string.logging_fail), Toast.LENGTH_SHORT).show();
                     progressDialog.dismiss();
                 }
             }
