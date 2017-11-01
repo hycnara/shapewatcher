@@ -20,8 +20,12 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.w3c.dom.Text;
+
+import pl.edu.agh.shapewatcher.entities.User;
 
 
 public class RegistrationActivity extends AppCompatActivity implements View.OnClickListener{
@@ -39,6 +43,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
     private ProgressDialog progressDialog;
 
     private FirebaseAuth firebaseAuth;
+    private DatabaseReference databaseUser;
 
 
     @Override
@@ -47,6 +52,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         setContentView(R.layout.activity_registration);
 
         firebaseAuth = FirebaseAuth.getInstance();
+        databaseUser = FirebaseDatabase.getInstance().getReference("users");
         progressDialog = new ProgressDialog(this);
 
         editTextLogin = (EditText) findViewById(R.id.editTextLogin);
@@ -86,7 +92,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         if(!editTextAge.getText().toString().isEmpty())
             age = Integer.parseInt(editTextAge.getText().toString());
         String sex = radioButtonMale.isChecked() ? "Male" : "Female";
-        String education = spinnerEducation.getSelectedItem().toString();
+        String degree = spinnerEducation.getSelectedItem().toString();
         if(TextUtils.isEmpty(login)){
             Toast.makeText(this, getString(R.string.enter_login), Toast.LENGTH_SHORT).show();
             return;
@@ -107,6 +113,8 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
             Toast.makeText(this, getString(R.string.valid_age), Toast.LENGTH_SHORT).show();
             return;
         }
+
+        final User dbuser = new User(login,sex, degree,age);
         progressDialog.setMessage(getString(R.string.registering_user));
         progressDialog.show();
 
@@ -120,7 +128,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                     UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                             .setDisplayName(login).build();
                     user.updateProfile(profileUpdates);
-
+                    databaseUser.child(login).setValue(dbuser);
                     progressDialog.dismiss();
                     finish();
                     startActivity(new Intent(RegistrationActivity.this, LoginActivity.class));

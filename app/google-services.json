@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "19532199538-r496ijp9n7nbffc1dl6mu9a85fgndbfv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "pl.edu.agh.shapewatcher",
+            "certificate_hash": "c8ccc7c0fc9d5d354fb718dbbe401070f4c55cf1"
+          }
+        },
+        {
           "client_id": "19532199538-dbqpvn8uiqecami9nfsg6c4jn26hom8t.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "19532199538-dbqpvn8uiqecami9nfsg6c4jn26hom8t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2
