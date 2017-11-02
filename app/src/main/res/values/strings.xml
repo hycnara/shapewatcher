@@ -14,5 +14,6 @@
     <string name="valid_password">Please enter valid password.</string>
     <string name="logging">Logging in</string>
     <string name="logging_success">Logged in successfully.</string>
-    <string name="logging_fail">Logging unsuccesfull. Please use valid email and password.</string>
+    <string name="logging_fail">Logging unsuccessful. Please use valid email and password.</string>
+    <string name="percent">%</string>
 </resources>
