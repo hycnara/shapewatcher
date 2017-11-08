@@ -302,6 +302,31 @@ public class NewGameActivity extends AppCompatActivity  {
     }
 
     private double drawStar(Canvas canvas, ImageView imageView, Paint paint, Bitmap bitmap){
-        return 0;
+
+        Path path = new Path();
+
+        int x = new Random().nextInt(15)+5;
+        float aX = new Random().nextInt(90);
+        float aY = new Random().nextInt(60)+60;
+        float bX = aX + 8 * x;
+        float bY = aY;
+        float cX = aX + 1.4f * x;
+        float cY = aY + 4 * x;
+        float dX = aX + 4 * x;
+        float dY = aY - 3 * x;
+        float eX = bX - 1.4f * x;
+        float eY = cY;
+
+        path.moveTo(aX, aY);
+        path.lineTo(bX, bY);
+        path.lineTo(cX, cY);
+        path.lineTo(dX, dY);
+        path.lineTo(eX, eY);
+        path.close();
+
+        canvas.drawPath(path, paint);
+        imageView.setImageBitmap(bitmap);
+
+        return (10*Math.tan(Math.PI/10))/(3- Math.tan(Math.PI/10)*Math.tan(Math.PI/10))*16*x*x;
     }
 }
