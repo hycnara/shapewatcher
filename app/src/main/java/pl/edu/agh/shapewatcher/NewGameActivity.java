@@ -4,6 +4,8 @@ import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Path;
+import android.graphics.Point;
 import android.graphics.Rect;
 import android.os.CountDownTimer;
 import android.support.v7.app.AlertDialog;
@@ -277,7 +279,26 @@ public class NewGameActivity extends AppCompatActivity  {
     }
 
     private double drawTriangle(Canvas canvas, ImageView imageView, Paint paint, Bitmap bitmap){
-        return 0;
+        int aX = new Random().nextInt(100);
+        int aY = new Random().nextInt(140);
+        int bX = new Random().nextInt(80)+170;
+        int bY = new Random().nextInt(140);
+        int cX = new Random().nextInt(100)+80;
+        int cY = new Random().nextInt(70)+140;
+
+        paint.setStrokeWidth(4);
+
+        Path path = new Path();
+        path.setFillType(Path.FillType.EVEN_ODD);
+        path.moveTo(bX, bY);
+        path.lineTo(cX, cY);
+        path.lineTo(aX, aY);
+        path.close();
+
+        canvas.drawPath(path, paint);
+        imageView.setImageBitmap(bitmap);
+
+        return Math.abs(((bX-aX)*(cY-aY))-((bY-aY)*(cX-aX)))/2;
     }
 
     private double drawStar(Canvas canvas, ImageView imageView, Paint paint, Bitmap bitmap){
