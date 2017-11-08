@@ -9,6 +9,8 @@ import android.os.CountDownTimer;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
@@ -16,12 +18,13 @@ import android.widget.TextView;
 
 import java.util.Random;
 
-public class NewGameActivity extends AppCompatActivity  {
+public class NewGameActivity extends AppCompatActivity  implements View.OnClickListener{
 
     private ProgressBar progressBar;
     private SeekBar seekBar;
     private ImageView imageViewBlue;
     private ImageView imageViewRed;
+    private Button buttonEndRound;
 
     private TextView textViewScore;
     private TextView textViewRound;
@@ -51,11 +54,13 @@ public class NewGameActivity extends AppCompatActivity  {
         seekBar = (SeekBar) findViewById(R.id.seekBar);
         imageViewBlue = (ImageView) findViewById(R.id.imageViewBlue);
         imageViewRed = (ImageView) findViewById(R.id.imageViewRed);
+        buttonEndRound = (Button) findViewById(R.id.buttonEndRound);
         textViewBlue = (TextView) findViewById(R.id.textViewBlue);
         textViewRed = (TextView) findViewById(R.id.textViewRed);
         textViewScore = (TextView) findViewById(R.id.textViewScore);
         textViewRound = (TextView) findViewById(R.id.textViewRound);
 
+        buttonEndRound.setOnClickListener(this);
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -324,5 +329,18 @@ public class NewGameActivity extends AppCompatActivity  {
         imageView.setImageBitmap(bitmap);
 
         return (10*Math.tan(Math.PI/10))/(3- Math.tan(Math.PI/10)*Math.tan(Math.PI/10))*16*x*x;
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(v == buttonEndRound){
+            endRound();
+        }
+    }
+
+    private void endRound() {
+        countDownTimer.cancel();
+        progressBar.setProgress(0);
+        countPoints();
     }
 }
