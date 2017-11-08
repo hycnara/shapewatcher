@@ -5,8 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.graphics.Point;
-import android.graphics.Rect;
 import android.os.CountDownTimer;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -43,8 +41,6 @@ public class NewGameActivity extends AppCompatActivity  {
     private int roundScore = 0;
     private double surfaceBlue = 0;
     private double surfaceRed = 0;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
