@@ -18,4 +18,20 @@ public class Round {
         this.score = score;
         this.biggerFigureColor = biggerFigureColor;
     }
+
+    public String getUserLogin() {
+        return userLogin;
+    }
+
+    public int getRound() {
+        return round;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public String getBiggerFigureColor() {
+        return biggerFigureColor;
+    }
 }
