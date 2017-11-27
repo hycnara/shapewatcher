@@ -1,10 +1,14 @@
 package pl.edu.agh.shapewatcher;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.drawable.BitmapDrawable;
+import android.media.MediaPlayer;
 import android.os.CountDownTimer;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -16,7 +20,22 @@ import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Logger;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
+
+import pl.edu.agh.shapewatcher.entities.Result;
+import pl.edu.agh.shapewatcher.entities.Round;
 
 public class NewGameActivity extends AppCompatActivity  implements View.OnClickListener{
 
@@ -39,6 +58,11 @@ public class NewGameActivity extends AppCompatActivity  implements View.OnClickL
     private Paint paintBlue;
     private Paint paintRed;
 
+    private FirebaseAuth firebaseAuth;
+    private DatabaseReference databaseResults;
+    private DatabaseReference  databaseRounds;
+
+    final List<Integer> results = new ArrayList<Integer>();
     private int score = 0;
     private int round = 1;
     private int roundScore = 0;
@@ -49,6 +73,10 @@ public class NewGameActivity extends AppCompatActivity  implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_game);
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        databaseResults = FirebaseDatabase.getInstance().getReference("results");
+        databaseRounds = FirebaseDatabase.getInstance().getReference("rounds");
 
         progressBar = (ProgressBar) findViewById(R.id.progressBarCountingDown);
         seekBar = (SeekBar) findViewById(R.id.seekBar);
@@ -79,10 +107,8 @@ public class NewGameActivity extends AppCompatActivity  implements View.OnClickL
             }
         });
 
-        //jakies okienko, że nowa gra jest
         setCanvas();
         play();
-        //save score to database
     }
 
     private void setCanvas() {
@@ -102,6 +128,12 @@ public class NewGameActivity extends AppCompatActivity  implements View.OnClickL
     }
 
     private void play() {
+        if(round == 11){
+            --round;
+            updateGameState();
+            endGame();
+            return;
+        }
         updateGameState();
         repaint();
         drawShapes();
@@ -161,14 +193,45 @@ public class NewGameActivity extends AppCompatActivity  implements View.OnClickL
                 surfaceBlue = drawTriangle(canvasBlue, imageViewBlue, paintBlue, bitmapBlue);
                 surfaceRed = drawStar(canvasRed, imageViewRed, paintRed, bitmapRed);
                 break;
-            default:
-                endGame();
         }
     }
 
     private void endGame() {
-        //do things that end game
+        saveResultToDataBase(this.score);
+        int scorePlace = countScorePlace(this.score);
+        showFinalScore(scorePlace);
+        MediaPlayer.create(this, R.raw.congratulations).start();
     }
+
+    private int countScorePlace(int finalScore) {
+      //  Collections.sort(results, Collections.<Integer>reverseOrder());
+        return 1;
+    }
+
+    private void showFinalScore(int scorePlace) {
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+        builder1.setTitle("You've earned +"+score+" points!");
+        builder1.setMessage("This result is "+ scorePlace+". best score.");
+        builder1.setCancelable(true);
+        builder1.setNeutralButton(android.R.string.ok,
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                        finish();
+                        startActivity(new Intent(NewGameActivity.this, RankingActivity.class));
+                    }
+                });
+
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+    }
+
+    private void saveResultToDataBase(int score) {
+        String userLogin = firebaseAuth.getCurrentUser().getDisplayName();
+        final Result finalResult = new Result(userLogin, score);
+        databaseResults.child(userLogin+score).setValue(finalResult);
+    }
+
 
     private void countDown() {
 
@@ -185,9 +248,6 @@ public class NewGameActivity extends AppCompatActivity  implements View.OnClickL
             public void onFinish() {
                 progressBar.setProgress(0);
                 countPoints();
-                //display points
-                //add points to score
-                //start new comparison
             }
         };
         countDownTimer.start();
@@ -195,6 +255,7 @@ public class NewGameActivity extends AppCompatActivity  implements View.OnClickL
 
     private void countPoints() {
         roundScore = 0;
+        String color = "blue";
         double allSurf = surfaceBlue + surfaceRed;
         int bluePercentage = (int) Math.round(surfaceBlue*100/allSurf);
         int redPercentage = (int) Math.round(surfaceRed*100/allSurf);
@@ -202,17 +263,28 @@ public class NewGameActivity extends AppCompatActivity  implements View.OnClickL
         int userBluePercentage = Integer.parseInt(textViewBlue.getText().toString().replace("%",""));
         int userRedPercentage = Integer.parseInt(textViewRed.getText().toString().replace("%",""));
 
-        if(bluePercentage >= redPercentage && userBluePercentage >= userRedPercentage){
+        if(bluePercentage > redPercentage && userBluePercentage > userRedPercentage){
             roundScore+=5;
         }
-        else if(redPercentage >= bluePercentage && userRedPercentage >= userBluePercentage){
+        else if(bluePercentage == redPercentage && userBluePercentage == userRedPercentage){
             roundScore+=5;
         }
+        else if(redPercentage > bluePercentage && userRedPercentage > userBluePercentage){
+            roundScore+=5;
+        }
+        else if(redPercentage == bluePercentage && userRedPercentage == userBluePercentage){
+            roundScore+=5;
+        }
+
+        if(redPercentage > bluePercentage)
+            color = "red";
 
         int diff = Math.abs(bluePercentage - userBluePercentage);
 
-        if(diff == 0)
-            roundScore+=5;
+        if(diff == 0) {
+            roundScore += 5;
+            MediaPlayer.create(this, R.raw.win).start();
+        }
         else if(diff >=1 && diff <=3)
             roundScore+=4;
         else if(diff >=4 && diff <=10)
@@ -220,8 +292,10 @@ public class NewGameActivity extends AppCompatActivity  implements View.OnClickL
         else if(diff >=11 && diff <=20)
             roundScore +=2;
         else if(diff >=21 && diff <= 30)
-            roundScore +=1;
+            roundScore += 1;
 
+
+        saveRoundToDatabase(roundScore, round, color);
 
         AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
         builder1.setTitle("Score +"+roundScore+" points");
@@ -240,6 +314,12 @@ public class NewGameActivity extends AppCompatActivity  implements View.OnClickL
 
         AlertDialog alert11 = builder1.create();
         alert11.show();
+    }
+
+    private void saveRoundToDatabase(int roundScore, int round, String color){
+        String userLogin = firebaseAuth.getCurrentUser().getDisplayName();
+        final Round round1 = new Round(userLogin,round,roundScore,color);
+        databaseRounds.child(userLogin+round).setValue(round1);
     }
 
     private void updateGameState(){
@@ -328,9 +408,24 @@ public class NewGameActivity extends AppCompatActivity  implements View.OnClickL
         canvas.drawPath(path, paint);
         imageView.setImageBitmap(bitmap);
 
-        return (10*Math.tan(Math.PI/10))/(3- Math.tan(Math.PI/10)*Math.tan(Math.PI/10))*16*x*x;
+        return starArea(((BitmapDrawable)imageView.getDrawable()).getBitmap());
     }
 
+    public double starArea(Bitmap bm) {
+        final int width = bm.getWidth();
+        final int height = bm.getHeight();
+
+        int totalColored = 0;
+        for(int x = 0; x < width; x++) {
+            for(int y = 0; y < height; y++) {
+                if(bm.getPixel(x,y) != getResources().getColor(R.color.butter)){
+                    totalColored++;
+                }
+            }
+        }
+        return totalColored;
+
+    }
     @Override
     public void onClick(View v) {
         if(v == buttonEndRound){

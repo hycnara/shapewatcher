@@ -36,7 +36,7 @@ public class RankingList extends ArrayAdapter<Result> {
         TextView textView = (TextView) listViewItem.findViewById(R.id.textViewRankingUser);
 
         Result result = userList.get(position);
-        textView.setText(result.getUserScore()+ " "+ result.getUserLogin());
+        textView.setText((position+1)+ ".  " + result.getUserLogin()+ "  "+ result.getUserScore());
 
         return listViewItem;
     }
