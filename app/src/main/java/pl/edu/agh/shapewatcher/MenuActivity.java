@@ -61,7 +61,9 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(new Intent(MenuActivity.this, RankingActivity.class));
         }
         if(v == buttonSettings){
-            startActivity(new Intent(MenuActivity.this, SettingsActivity.class));
+            Intent i = new Intent(MenuActivity.this, SettingsActivity.class);
+            i.putExtra("sound",SettingsActivity.isSoundOn());
+            startActivity(i);
         }
         if(v == buttonLogOut){
 

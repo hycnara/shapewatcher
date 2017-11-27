@@ -200,7 +200,8 @@ public class NewGameActivity extends AppCompatActivity  implements View.OnClickL
         saveResultToDataBase(this.score);
         int scorePlace = countScorePlace(this.score);
         showFinalScore(scorePlace);
-        MediaPlayer.create(this, R.raw.congratulations).start();
+        if(SettingsActivity.isSoundOn())
+            MediaPlayer.create(this, R.raw.congratulations).start();
     }
 
     private int countScorePlace(int finalScore) {
@@ -272,9 +273,6 @@ public class NewGameActivity extends AppCompatActivity  implements View.OnClickL
         else if(redPercentage > bluePercentage && userRedPercentage > userBluePercentage){
             roundScore+=5;
         }
-        else if(redPercentage == bluePercentage && userRedPercentage == userBluePercentage){
-            roundScore+=5;
-        }
 
         if(redPercentage > bluePercentage)
             color = "red";
@@ -283,7 +281,8 @@ public class NewGameActivity extends AppCompatActivity  implements View.OnClickL
 
         if(diff == 0) {
             roundScore += 5;
-            MediaPlayer.create(this, R.raw.win).start();
+            if(SettingsActivity.isSoundOn())
+                MediaPlayer.create(this, R.raw.win).start();
         }
         else if(diff >=1 && diff <=3)
             roundScore+=4;

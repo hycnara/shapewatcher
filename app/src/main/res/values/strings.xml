@@ -16,4 +16,7 @@
     <string name="logging_success">Logged in successfully.</string>
     <string name="logging_fail">Logging unsuccessful. Please use valid email and password.</string>
     <string name="percent">%</string>
+    <string name="sound_effects_on">Sound effects: on</string>
+    <string name="sound_effects_off">Sound effects: off</string>
+    <string name="how_to_play">How to play</string>
 </resources>
