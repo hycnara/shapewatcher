@@ -318,7 +318,7 @@ public class NewGameActivity extends AppCompatActivity  implements View.OnClickL
     private void saveRoundToDatabase(int roundScore, int round, String color){
         String userLogin = firebaseAuth.getCurrentUser().getDisplayName();
         final Round round1 = new Round(userLogin,round,roundScore,color);
-        databaseRounds.child(userLogin+round).setValue(round1);
+        databaseRounds.child(databaseRounds.push().getKey()).setValue(round1);
     }
 
     private void updateGameState(){
