@@ -30,7 +30,11 @@ public class RankingActivity extends AppCompatActivity{
     DatabaseReference databaseResults;
 
     ListView listViewRanking;
-    List<Result> resultList;
+    static List<Result> resultList;
+
+    public static List<Result> getResultList() {
+        return resultList;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

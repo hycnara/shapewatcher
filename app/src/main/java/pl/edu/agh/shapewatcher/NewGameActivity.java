@@ -62,7 +62,7 @@ public class NewGameActivity extends AppCompatActivity  implements View.OnClickL
     private DatabaseReference databaseResults;
     private DatabaseReference  databaseRounds;
 
-    final List<Integer> results = new ArrayList<Integer>();
+    private List<Integer> results = new ArrayList<Integer>();
     private int score = 0;
     private int round = 1;
     private int roundScore = 0;
@@ -198,21 +198,15 @@ public class NewGameActivity extends AppCompatActivity  implements View.OnClickL
 
     private void endGame() {
         saveResultToDataBase(this.score);
-        int scorePlace = countScorePlace(this.score);
-        showFinalScore(scorePlace);
+        showFinalScore();
         if(SettingsActivity.isSoundOn())
             MediaPlayer.create(this, R.raw.congratulations).start();
     }
 
-    private int countScorePlace(int finalScore) {
-      //  Collections.sort(results, Collections.<Integer>reverseOrder());
-        return 1;
-    }
-
-    private void showFinalScore(int scorePlace) {
+    private void showFinalScore() {
         AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
         builder1.setTitle("You've earned +"+score+" points!");
-        builder1.setMessage("This result is "+ scorePlace+". best score.");
+        builder1.setMessage("Congratulations!");
         builder1.setCancelable(true);
         builder1.setNeutralButton(android.R.string.ok,
                 new DialogInterface.OnClickListener() {
@@ -407,24 +401,9 @@ public class NewGameActivity extends AppCompatActivity  implements View.OnClickL
         canvas.drawPath(path, paint);
         imageView.setImageBitmap(bitmap);
 
-        return starArea(((BitmapDrawable)imageView.getDrawable()).getBitmap());
+        return  (10*Math.tan(Math.PI/10))/(3- Math.tan(Math.PI/10)*Math.tan(Math.PI/10))*17*x*x;
     }
 
-    public double starArea(Bitmap bm) {
-        final int width = bm.getWidth();
-        final int height = bm.getHeight();
-
-        int totalColored = 0;
-        for(int x = 0; x < width; x++) {
-            for(int y = 0; y < height; y++) {
-                if(bm.getPixel(x,y) != getResources().getColor(R.color.butter)){
-                    totalColored++;
-                }
-            }
-        }
-        return totalColored;
-
-    }
     @Override
     public void onClick(View v) {
         if(v == buttonEndRound){
