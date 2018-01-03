@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/butter"
+    tools:context="pl.edu.agh.shapewatcher.AnalysisActivity">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:textSize="20sp"
+                    android:text="Analysis Results"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:textSize="19sp"
+                    android:text="Which figure seems a bit bigger than it really is?"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Round 1: Circle - Square"
+                    android:textSize="18sp" />
+
+                <LinearLayout
+                    android:id="@+id/pieGraph1"
+                    android:layout_width="300dp"
+                    android:layout_height="300dp"
+                    android:orientation="horizontal"
+                    android:layout_centerHorizontal="true"
+                    tools:layout_editor_absoluteY="8dp"
+                    tools:layout_editor_absoluteX="8dp">
+                </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Round 2: Rectangle - Circle"
+                    android:textSize="18sp" />
+
+                <LinearLayout
+                    android:id="@+id/pieGraph2"
+                    android:layout_width="300dp"
+                    android:layout_height="300dp"
+                    android:orientation="horizontal"
+                    android:layout_centerHorizontal="true"
+                    tools:layout_editor_absoluteY="8dp"
+                    tools:layout_editor_absoluteX="8dp">
+                </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Round 3: Square - Rectangle"
+                    android:textSize="18sp" />
+
+                <LinearLayout
+                    android:id="@+id/pieGraph3"
+                    android:layout_width="300dp"
+                    android:layout_height="300dp"
+                    android:orientation="horizontal"
+                    android:layout_centerHorizontal="true"
+                    tools:layout_editor_absoluteY="8dp"
+                    tools:layout_editor_absoluteX="8dp">
+                </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Round 4: Triangle - Circle"
+                    android:textSize="18sp" />
+
+                <LinearLayout
+                    android:id="@+id/pieGraph4"
+                    android:layout_width="300dp"
+                    android:layout_height="300dp"
+                    android:orientation="horizontal"
+                    android:layout_centerHorizontal="true"
+                    tools:layout_editor_absoluteY="8dp"
+                    tools:layout_editor_absoluteX="8dp">
+                </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Round 5: Square - Triangle"
+                    android:textSize="18sp" />
+
+                <LinearLayout
+                    android:id="@+id/pieGraph5"
+                    android:layout_width="300dp"
+                    android:layout_height="300dp"
+                    android:orientation="horizontal"
+                    android:layout_centerHorizontal="true"
+                    tools:layout_editor_absoluteY="8dp"
+                    tools:layout_editor_absoluteX="8dp">
+                </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Round 6: Triangle - Rectangle"
+                    android:textSize="18sp" />
+
+                <LinearLayout
+                    android:id="@+id/pieGraph6"
+                    android:layout_width="300dp"
+                    android:layout_height="300dp"
+                    android:orientation="horizontal"
+                    android:layout_centerHorizontal="true"
+                    tools:layout_editor_absoluteY="8dp"
+                    tools:layout_editor_absoluteX="8dp">
+                </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Round 7: Star - Circle"
+                    android:textSize="18sp" />
+
+                <LinearLayout
+                    android:id="@+id/pieGraph7"
+                    android:layout_width="300dp"
+                    android:layout_height="300dp"
+                    android:orientation="horizontal"
+                    android:layout_centerHorizontal="true"
+                    tools:layout_editor_absoluteY="8dp"
+                    tools:layout_editor_absoluteX="8dp">
+                </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Round 8: Square - Star"
+                    android:textSize="18sp" />
+
+                <LinearLayout
+                    android:id="@+id/pieGraph8"
+                    android:layout_width="300dp"
+                    android:layout_height="300dp"
+                    android:orientation="horizontal"
+                    android:layout_centerHorizontal="true"
+                    tools:layout_editor_absoluteY="8dp"
+                    tools:layout_editor_absoluteX="8dp">
+                </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Round 9: Star - Rectangle"
+                    android:textSize="18sp" />
+
+                <LinearLayout
+                    android:id="@+id/pieGraph9"
+                    android:layout_width="300dp"
+                    android:layout_height="300dp"
+                    android:orientation="horizontal"
+                    android:layout_centerHorizontal="true"
+                    tools:layout_editor_absoluteY="8dp"
+                    tools:layout_editor_absoluteX="8dp">
+                </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Round 10: Triangle - Star"
+                    android:textSize="18sp" />
+
+                <LinearLayout
+                    android:id="@+id/pieGraph10"
+                    android:layout_width="300dp"
+                    android:layout_height="300dp"
+                    android:orientation="horizontal"
+                    android:layout_centerHorizontal="true"
+                    tools:layout_editor_absoluteY="8dp"
+                    tools:layout_editor_absoluteX="8dp">
+                </LinearLayout>
+
+        </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>
+        </ScrollView>

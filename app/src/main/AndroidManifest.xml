@@ -23,12 +23,32 @@
         <activity
             android:name=".RegistrationActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".MenuActivity" />
-        <activity android:name=".NewGameActivity" />
-        <activity android:name=".StatisticsActivity" />
-        <activity android:name=".RankingActivity" />
-        <activity android:name=".SettingsActivity"></activity>
+        <activity
+            android:name=".LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MenuActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".NewGameActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".StatisticsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".RankingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SettingsActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".AdminActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+        <activity android:name=".AnalysisActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
     </application>
 
 </manifest>

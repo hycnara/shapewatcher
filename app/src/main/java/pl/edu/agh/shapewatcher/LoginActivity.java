@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -63,19 +64,24 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             return;
         }
         progressDialog.setMessage(getString(R.string.logging));
-        firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
-                   Toast.makeText(LoginActivity.this, getString(R.string.logging_success), Toast.LENGTH_SHORT).show();
-                    progressDialog.dismiss();
-                    finish();
-                    startActivity(new Intent(LoginActivity.this, MenuActivity.class));
-                }
-                else{
-                    Toast.makeText(LoginActivity.this, getString(R.string.logging_fail), Toast.LENGTH_SHORT).show();
-                    progressDialog.dismiss();
-                }
+
+        if(email.equals("admin") && password.equals("admin")){
+            progressDialog.dismiss();
+            finish();
+            startActivity(new Intent(LoginActivity.this, AdminActivity.class));
+            return;
+        }
+
+        firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(this, task -> {
+            if(task.isSuccessful()){
+               Toast.makeText(LoginActivity.this, getString(R.string.logging_success), Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
+                finish();
+                startActivity(new Intent(LoginActivity.this, MenuActivity.class));
+            }
+            else{
+                Toast.makeText(LoginActivity.this, getString(R.string.logging_fail), Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
             }
         });
     }
