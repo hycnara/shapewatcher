@@ -22,7 +22,7 @@ public class AnalysisActivity extends AppCompatActivity {
             roundResults = (HashMap<Integer, GraphValues>)bundle.getSerializable("roundResults");
         }
 
-        PieGraph yummyPie = new PieGraph();
+        PieGraph yummyPie = new PieGraph();  
 
         GraphicalView graphicalView1 = yummyPie.getGraphicalView(this, roundResults.get(1).blueValue,roundResults.get(1).redValue,"CIRCLE", "SQUARE");
         LinearLayout pieGraph1 = (LinearLayout) findViewById(R.id.pieGraph1);
