@@ -4,10 +4,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaPlayer;
 import android.os.CountDownTimer;
 import android.support.v7.app.AlertDialog;
@@ -21,16 +19,9 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Logger;
-import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -135,6 +126,7 @@ public class NewGameActivity extends AppCompatActivity  implements View.OnClickL
             return;
         }
         updateGameState();
+        seekBar.setEnabled(true);
         repaint();
         drawShapes();
         countDown();
@@ -197,24 +189,23 @@ public class NewGameActivity extends AppCompatActivity  implements View.OnClickL
     }
 
     private void endGame() {
-        saveResultToDataBase(this.score);
-        showFinalScore();
+      //  saveResultToDataBase(this.score);
+        showFinalScore(this.score);
         if(SettingsActivity.isSoundOn())
             MediaPlayer.create(this, R.raw.congratulations).start();
     }
 
-    private void showFinalScore() {
+    private void showFinalScore(int sc) {
         AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
         builder1.setTitle("You've earned +"+score+" points!");
         builder1.setMessage("Congratulations!");
         builder1.setCancelable(true);
         builder1.setNeutralButton(android.R.string.ok,
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                        finish();
-                        startActivity(new Intent(NewGameActivity.this, RankingActivity.class));
-                    }
+                (dialog, id) -> {
+                    saveResultToDataBase(sc);
+                    dialog.cancel();
+                    finish();
+                    startActivity(new Intent(NewGameActivity.this, RankingActivity.class));
                 });
 
         AlertDialog alert11 = builder1.create();
@@ -251,6 +242,7 @@ public class NewGameActivity extends AppCompatActivity  implements View.OnClickL
     private void countPoints() {
         roundScore = 0;
         String color = "blue";
+
         double allSurf = surfaceBlue + surfaceRed;
         int bluePercentage = (int) Math.round(surfaceBlue*100/allSurf);
         int redPercentage = (int) Math.round(surfaceRed*100/allSurf);
@@ -287,26 +279,26 @@ public class NewGameActivity extends AppCompatActivity  implements View.OnClickL
         else if(diff >=21 && diff <= 30)
             roundScore += 1;
 
-
-        saveRoundToDatabase(roundScore, round, color);
+        if(seekBar.isEnabled())
+            score += roundScore;
 
         AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
         builder1.setTitle("Score +"+roundScore+" points");
         builder1.setMessage("Blue shape: "+ bluePercentage+"%\n"
                             +"Red shape: "+ redPercentage+"%");
         builder1.setCancelable(true);
+        String finalColor = color;
         builder1.setNeutralButton(android.R.string.ok,
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                        score += roundScore;
-                        round++;
-                        play();
-                    }
+                (dialog, id) -> {
+                    saveRoundToDatabase(roundScore, round, finalColor);
+                    dialog.cancel();
+                    round++;
+                    play();
                 });
 
         AlertDialog alert11 = builder1.create();
         alert11.show();
+        seekBar.setEnabled(false);
     }
 
     private void saveRoundToDatabase(int roundScore, int round, String color){

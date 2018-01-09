@@ -1,16 +1,9 @@
 package pl.edu.agh.shapewatcher;
 
-import android.app.Activity;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -23,7 +16,6 @@ import java.util.Collections;
 import java.util.List;
 
 import pl.edu.agh.shapewatcher.entities.Result;
-import pl.edu.agh.shapewatcher.entities.User;
 
 public class RankingActivity extends AppCompatActivity{
 
